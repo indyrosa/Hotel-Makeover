@@ -20,11 +20,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import idle_game.composeapp.generated.resources.Res
+import idle_game.composeapp.generated.resources.waterline
+import org.jetbrains.compose.resources.Font
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import util.Gelds
 import util.toHumanReadableString
 import vw.GameViewModel
+
 
 @Composable
 @Preview
@@ -37,6 +43,11 @@ fun App() {
 @Composable
 @Preview
 fun Screen() {
+
+    val CustomFontFamily = FontFamily(
+        Font(Res.font.waterline, FontWeight.Normal),
+    )
+
     Scaffold(
         content = {
             val coroutineScope = rememberCoroutineScope()
@@ -63,40 +74,38 @@ fun Screen() {
                 modifier = Modifier.fillMaxWidth()
                     .verticalScroll(rememberScrollState())
             ) {
-                Column() {
-                    Text("hallohallo")
-                    Text("12345")
-                }
+
                 Text(
                     "Hotel Makeover",
                     style = MaterialTheme.typography.h1,
+                    fontFamily = CustomFontFamily
                 )
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Button(
                     onClick = { viewModel.reset() },
                     colors = ButtonDefaults.buttonColors(
-                        backgroundColor = Color.Blue, // Background color
-                        contentColor = Color.Cyan   // Text color
+                        backgroundColor = Color(226,122,1), // Background color
+                        contentColor = Color.White   // Text color
                     ),
 
                 ) {
-                    Text("Reset Game")
+                    Text("Spielstand zurücksetzen")
                 }
 
                 gameState?.let { state ->
                     Text(
-                        "Bank: ${currentMoney?.toHumanReadableString()} Gelds",
+                        "Konto: ${currentMoney?.toHumanReadableString()} Muscheln",
                         style = MaterialTheme.typography.h4,
                     )
                     Button(
                         onClick = { viewModel.clickMoney(state) },
                         colors = ButtonDefaults.buttonColors(
-                            backgroundColor = Color.Blue, // Background color
-                            contentColor = Color.Cyan   // Text color
+                            backgroundColor = Color(226,122,1), // Background color
+                            contentColor = Color.White   // Text color
                         ),
                     ) {
-                        Text("Click money")
+                        Text("sammeln")
                     }
 
                     state.availableJobs.forEach { availableJob ->
@@ -124,26 +133,50 @@ private fun Generator(
     Row(
         horizontalArrangement = Arrangement.spacedBy(16.dp),
         modifier = modifier
-            .padding(8.dp)
-            .background(Color.LightGray, RoundedCornerShape(8.dp))
+            .padding(10.dp)
+            .background(Color(255,181,127), RoundedCornerShape(8.dp))
             .padding(8.dp)
     ) {
+
         Column {
-            Text("Generator ${gameJob.id}")
+            if (gameJob.id == 1)  {
+                Text("Zimmer ${gameJob.id}")
+            }
+            if (gameJob.id == 2)  {
+                Text("Doppel Zimmer ${gameJob.id}")
+            }
+            if (gameJob.id == 3)  {
+                Text("Suite ${gameJob.id}")
+            }
+            if (gameJob.id == 4)  {
+                Text("Pool ${gameJob.id}")
+            }
+            if (gameJob.id == 5)  {
+                Text("Restaurant ${gameJob.id}")
+            }
             Text("Level: ${gameJob.level.level}")
-            Text("Costs: ${gameJob.level.cost.toHumanReadableString()} Gelds")
-            Text("Earns: ${gameJob.level.earn.toHumanReadableString()} Gelds")
-            Text("Duration: ${gameJob.level.duration.inWholeSeconds} Seconds")
+            Text("Kosten: ${gameJob.level.cost.toHumanReadableString()} Muscheln")
+            Text("Gewinne: ${gameJob.level.earn.toHumanReadableString()} Muscheln")
+            Text("Dauer: ${gameJob.level.duration.inWholeSeconds} Sekunden")
         }
         if (!alreadyBought) {
-            Button(onClick = onBuy) {
-                Text("Buy")
+            Button(onClick = onBuy,
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = Color(226,122,1), // Background color
+                    contentColor = Color.White   // Text color
+                ),
+            ) {
+
+                Text("Kaufen")
             }
         } else {
-            Text("Bought")
+            Text("Gekauft")
         }
-        Button(onClick = onUpgrade) {
-            Text("Upgrade")
+        Button(onClick = onUpgrade,colors = ButtonDefaults.buttonColors(
+            backgroundColor = Color(255,164,57), // Background color
+            contentColor = Color.White   // Text color
+        ), ) {
+            Text("Upgraden")
         }
     }
 }
