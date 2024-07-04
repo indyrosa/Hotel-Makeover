@@ -110,7 +110,7 @@ fun Screen() {
                         painterResource(Res.drawable.muschel),
                         contentDescription = "A square",
                         modifier = Modifier.offset(
-                            x = 150.dp, y = -90.dp
+                            x = 250.dp, y = -90.dp
                         ).width(45.dp).height(45.dp)
                     )
 
