@@ -90,6 +90,19 @@ fun Screen() {
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Button(
+                    onClick = { viewModel.reset() },
+                    colors = ButtonDefaults.buttonColors(
+                        backgroundColor = Color(226, 122, 1), // Background color
+                        contentColor = Color.White   // Text color
+
+
+                    ),
+                    modifier = Modifier.offset(x = 1550.dp, y = -100.dp)
+
+                ) {
+                    Text("Spielstand zurücksetzen")
+                }
+                Button(
                     onClick = { showDialog = true },
                     colors = ButtonDefaults.buttonColors(
                         backgroundColor = Color(226, 122, 1), // Background color
@@ -138,16 +151,7 @@ fun Screen() {
                         )
                     }
                 }
-                Button(
-                    onClick = { viewModel.reset() },
-                    colors = ButtonDefaults.buttonColors(
-                        backgroundColor = Color(226, 122, 1), // Background color
-                        contentColor = Color.White   // Text color
-                    ),
 
-                    ) {
-                    Text("Spielstand zurücksetzen")
-                }
             }
         }
     )
