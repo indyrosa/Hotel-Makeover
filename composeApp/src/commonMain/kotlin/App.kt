@@ -5,20 +5,16 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.derivedStateOf
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
 import idle_game.composeapp.generated.resources.Res
 import idle_game.composeapp.generated.resources.hintergrund
 import idle_game.composeapp.generated.resources.muschel
@@ -67,6 +63,8 @@ fun Screen() {
             val currentMoney: Gelds? by remember(gameState) {
                 derivedStateOf { gameState?.stashedMoney }
             }
+            var showDialog by remember { mutableStateOf(false) }
+
 
             Image(
                 painterResource(Res.drawable.hintergrund),
@@ -89,7 +87,21 @@ fun Screen() {
                 )
                 Spacer(modifier = Modifier.height(16.dp))
 
+                Button(
+                    onClick = { showDialog = true },
+                    colors = ButtonDefaults.buttonColors(
+                        backgroundColor = Color(226, 122, 1), // Background color
+                        contentColor = Color.White   // Text color
+                    ),
 
+                ) {
+                    Text("Geschichte")
+                }
+                if (showDialog) {
+                    MinimalDialog {
+                        showDialog = false
+                    }
+                }
 
                 gameState?.let { state ->
                     Text(
@@ -198,6 +210,32 @@ private fun Generator(
             ),
         ) {
             Text("Upgraden")
+        }
+    }
+}
+@Composable
+fun MinimalDialog(onDismissRequest: () -> Unit) {
+    Dialog(onDismissRequest = { onDismissRequest() }) {
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(350.dp)
+                .padding(16.dp),
+            backgroundColor = Color(255, 228, 189), // Background color
+            shape = RoundedCornerShape(16.dp),
+        ) {
+            Text(
+                text = "Eine Frau hat ein Hotel von ihrem verstorbenen Opa geerbt, dieses ist allerdings total runtergekommen hat aber eine tolle Lage am Strand. " +
+                        "Sie möchte dieses nun aufwerten und profitabler machen. Dafür verwendet sie die Muscheln, die sie am Strand findet. " +
+                        "Du kannst Muscheln zu deinem Konto hinzufügen, indem du auf sammeln klickst. Nach jedem Gast der in dem Zimmer war kriegt, " +
+                        "sie Muscheln die automatisch zu ihrem Konto hinzugefügt werden. Nach und nach kann sie weitere Zimmer renovieren. " +
+                        "Mit den Muscheln kann sie auch die Zimmer upgraden wodurch die Gäste mehr Muscheln da lassen und so immer mehr Muscheln auf ihr Konto kommen." +
+                        " Das Ziel ist es das beliebste und größte  Hotel in Seashell-Beach zu besitzen.  ",
+                modifier = Modifier
+                    .fillMaxSize()
+                    .wrapContentSize(Alignment.Center),
+                textAlign = TextAlign.Center,
+            )
         }
     }
 }
