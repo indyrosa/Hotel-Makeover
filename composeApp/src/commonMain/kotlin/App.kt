@@ -8,6 +8,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
@@ -163,7 +164,10 @@ private fun Generator(
         horizontalArrangement = Arrangement.spacedBy(16.dp),
         modifier = modifier
             .padding(10.dp)
-            .background(Color(255, 181, 127), RoundedCornerShape(8.dp))
+            .background(
+                Brush.linearGradient(
+                    colors = listOf(Color(255,158,87), Color(255,212,181)),  // Cream gradient
+                ), RoundedCornerShape(8.dp))
             .padding(8.dp).width(430.dp)
     ) {
 
