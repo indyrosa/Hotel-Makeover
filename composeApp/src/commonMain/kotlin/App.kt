@@ -152,7 +152,7 @@ private fun Generator(
         modifier = modifier
             .padding(10.dp)
             .background(Color(255, 181, 127), RoundedCornerShape(8.dp))
-            .padding(8.dp),
+            .padding(8.dp).width(430.dp)
     ) {
 
         Column {
