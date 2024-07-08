@@ -11,11 +11,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import idle_game.composeapp.generated.resources.*
 import idle_game.composeapp.generated.resources.Res
 import idle_game.composeapp.generated.resources.hintergrund
 import idle_game.composeapp.generated.resources.muschel
@@ -70,9 +72,8 @@ fun Screen() {
             Image(
                 painterResource(Res.drawable.hintergrund),
                 contentDescription = "A square",
-                modifier = Modifier.offset(
-
-                ).width(40000.dp).height(1400.dp)
+                modifier = Modifier.fillMaxSize(),
+                contentScale = ContentScale.Crop  // Optional: Scale the image to cover the entire area
             )
 
 
